@@ -6,6 +6,9 @@ module.exports = function(environment) {
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
+    'ember-cli-gtm': {
+      appId: 'GTM-P5KZR26'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
