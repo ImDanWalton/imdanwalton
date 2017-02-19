@@ -10,7 +10,7 @@
       "vendorFiles": [
         "fastboot/vendor.js"
       ],
-      "htmlFile": "index.html"
+      "htmlFile": "amp-index.html"
     },
     "appConfig": {
       "modulePrefix": "imdanwalton",
@@ -20,6 +20,9 @@
       "ember-cli-gtm": {
         "appId": "GTM-P5KZR26"
       },
+      "fastboot": {
+        "htmlFile": "amp-index.html"
+      },
       "EmberENV": {
         "FEATURES": {},
         "EXTEND_PROTOTYPES": {
@@ -28,7 +31,7 @@
       },
       "APP": {
         "name": "imdanwalton",
-        "version": "0.0.0+abc4aa63",
+        "version": "0.0.0+99916bb1",
         "autoboot": false
       },
       "exportApplicationGlobal": true

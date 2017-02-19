@@ -72859,6 +72859,174 @@ define('ember-ajax/utils/url-helpers', ['exports', 'ember-ajax/utils/is-fastboot
 
   exports.RequestURL = RequestURL;
 });
+define('ember-cli-amp/components/amp-sidebar', ['exports', 'ember-component', 'ember-runloop', 'ember-service/inject', 'ember-metal/utils', 'ember-cli-amp/templates/components/amp-sidebar'], function (exports, _emberComponent, _emberRunloop, _emberServiceInject, _emberMetalUtils, _emberCliAmpTemplatesComponentsAmpSidebar) {
+  'use strict';
+
+  exports['default'] = _emberComponent['default'].extend({
+    amp: (0, _emberServiceInject['default'])(),
+    layout: _emberCliAmpTemplatesComponentsAmpSidebar['default'],
+
+    init: function init() {
+      this._super.apply(this, arguments);
+
+      var amp = this.get('amp');
+      (0, _emberMetalUtils.assert)('amp-sidebar component cannot render if "amp" service is not present', !!amp);
+      amp.registerExtension('sidebar');
+
+      this._dom = this.renderer._dom;
+      this._markerNode = this._dom.document.createTextNode('');
+      this._didInsert = false;
+    },
+
+    willRender: function willRender() {
+      var _this = this;
+
+      this._super.apply(this, arguments);
+      if (!this._didInsert) {
+        this._didInsert = true;
+
+        // Have to schedule into `afterRender` here rather
+        // because the `didInsertElement` is not called in Fastboot
+        _emberRunloop['default'].schedule('afterRender', function () {
+          if (_this.isDestroyed) {
+            return;
+          }
+
+          _this._element = _this._markerNode.parentNode;
+
+          _this._attachElementToBody(_this._element);
+        });
+      }
+    },
+
+    willDestroyElement: function willDestroyElement() {
+      if (this._element.parentNode) {
+        this._element.parentNode.removeChild(this._element);
+      }
+    },
+
+    _attachElementToBody: function _attachElementToBody(element) {
+      // remove from parentNode if it is already attached
+      // FIXME this is only necessary due to a bug in simple-dom see https://github.com/ember-fastboot/simple-dom/pull/20
+      if (element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
+      var body = this._dom.document.body;
+      body.insertBefore(element, body.firstChild);
+    }
+  });
+});
+define('ember-cli-amp/helpers/amp-extension', ['exports', 'ember-helper', 'ember-string'], function (exports, _emberHelper, _emberString) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  exports.ampExtension = ampExtension;
+
+  var PREFIX = "https://cdn.ampproject.org/v0/amp-";
+  var SUFFIX = "-0.1.js";
+
+  /**
+   * Add an AMP extension script
+   * See https://www.ampproject.org/docs/reference/extended.html
+   */
+
+  function ampExtension(_ref /*, hash*/) {
+    var _ref2 = _slicedToArray(_ref, 1);
+
+    var name = _ref2[0];
+
+    var src = PREFIX + name + SUFFIX;
+    var script = '<script async custom-element="amp-' + name + '" src="' + src + '"></script>';
+    return (0, _emberString.htmlSafe)(script);
+  }
+
+  exports['default'] = _emberHelper['default'].helper(ampExtension);
+});
+define('ember-cli-amp/services/amp', ['exports', 'ember-service', 'ember-computed', 'ember-service/inject', 'ember-array/utils'], function (exports, _emberService, _emberComputed, _emberServiceInject, _emberArrayUtils) {
+  'use strict';
+
+  exports['default'] = _emberService['default'].extend({
+    headData: (0, _emberServiceInject['default'])(),
+
+    init: function init() {
+      this._super.apply(this, arguments);
+
+      this.set('ampExtensions', []);
+      this.set('isAmp', false);
+    },
+
+    /**
+     * Register a new amp extension (this will make the script tag for that
+     * extension appear in `<head>`)
+     * @see https://github.com/ampproject/amphtml/tree/master/extensions
+     * @param {String} extension
+     */
+    registerExtension: function registerExtension(extension) {
+      var extensions = (0, _emberArrayUtils.A)(this.get('ampExtensions')); // jshint ignore:line
+      if (extensions.indexOf(extension) === -1) {
+        extensions.pushObject(extension);
+      }
+    },
+
+    // These properties will be proxied through to the `headData`
+    // service.
+    isAmp: _emberComputed['default'].alias('headData.isAmp'),
+    ampExtensions: _emberComputed['default'].alias('headData.ampExtensions'),
+    title: _emberComputed['default'].alias('headData.title'),
+    canonicalUrl: _emberComputed['default'].alias('headData.canonicalUrl')
+  });
+});
+define("ember-cli-amp/templates/components/amp-sidebar", ["exports"], function (exports) {
+  "use strict";
+
+  exports["default"] = Ember.HTMLBars.template({ "id": "2mjnGSrH", "block": "{\"statements\":[[\"open-element\",\"amp-sidebar\",[]],[\"static-attr\",\"id\",\"amp-sidebar\"],[\"static-attr\",\"layout\",\"nodisplay\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"text\",\"  \"],[\"append\",[\"helper\",[\"unbound\"],[[\"get\",[\"_markerNode\"]]],null],false],[\"yield\",\"default\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "modules/ember-cli-amp/templates/components/amp-sidebar.hbs" } });
+});
+define('ember-cli-amp/utils/deactivate-shoebox', ['exports', 'ember-owner/get'], function (exports, _emberOwnerGet) {
+  'use strict';
+
+  exports['default'] = deactivateShoebox;
+
+  // Replaces the Fastboot service shoebox,
+  // see: https://github.com/ember-fastboot/ember-cli-fastboot/blob/32d40b29ea2e66a5a1c997be8f511caf757c9cbb/app/services/fastboot.js#L29-L61
+  var InertShoebox = {
+    put: function put() {},
+    retrieve: function retrieve() {}
+  };
+  function deactivateShoebox(context) {
+    var fastbootInfo = (0, _emberOwnerGet['default'])(context).lookup('info:-fastboot');
+    if (fastbootInfo) {
+      // empty the shoebox
+      fastbootInfo.shoebox = {};
+    }
+    // block further abiilty to put stuff into shoebox by replacing fastboot.shoebox
+    context.set('fastboot.shoebox', InertShoebox);
+  }
+});
 define('ember-cli-app-version/initializer-factory', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
 
@@ -72878,6 +73046,16 @@ define('ember-cli-app-version/initializer-factory', ['exports', 'ember'], functi
       }
     };
   }
+});
+define('ember-cli-head/services/head-data', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  exports['default'] = _ember['default'].Service.extend({});
+});
+define("ember-cli-head/templates/components/head-layout", ["exports"], function (exports) {
+  "use strict";
+
+  exports["default"] = Ember.HTMLBars.template({ "id": "6F70T3d4", "block": "{\"statements\":[[\"open-element\",\"meta\",[]],[\"static-attr\",\"name\",\"ember-cli-head-start\"],[\"flush-element\"],[\"close-element\"],[\"append\",[\"unknown\",[\"head-content\"]],false],[\"open-element\",\"meta\",[]],[\"static-attr\",\"name\",\"ember-cli-head-end\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "modules/ember-cli-head/templates/components/head-layout.hbs" } });
 });
 define("ember-data/-private/adapters", ["exports", "ember-data/adapters/json-api", "ember-data/adapters/rest"], function (exports, _emberDataAdaptersJsonApi, _emberDataAdaptersRest) {
   /**

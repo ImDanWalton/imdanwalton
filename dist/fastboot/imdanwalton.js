@@ -22,6 +22,22 @@ define('imdanwalton/app', ['exports', 'ember', 'imdanwalton/resolver', 'ember-lo
 
   exports['default'] = App;
 });
+define('imdanwalton/components/amp-sidebar', ['exports', 'ember-cli-amp/components/amp-sidebar'], function (exports, _emberCliAmpComponentsAmpSidebar) {
+  exports['default'] = _emberCliAmpComponentsAmpSidebar['default'];
+});
+define('imdanwalton/components/head-content', ['exports', 'ember', 'imdanwalton/templates/head'], function (exports, _ember, _imdanwaltonTemplatesHead) {
+  exports['default'] = _ember['default'].Component.extend({
+    tagName: '',
+    model: _ember['default'].inject.service('head-data'),
+    layout: _imdanwaltonTemplatesHead['default']
+  });
+});
+define('imdanwalton/components/head-layout', ['exports', 'ember', 'ember-cli-head/templates/components/head-layout'], function (exports, _ember, _emberCliHeadTemplatesComponentsHeadLayout) {
+  exports['default'] = _ember['default'].Component.extend({
+    tagName: '',
+    layout: _emberCliHeadTemplatesComponentsHeadLayout['default']
+  });
+});
 define('imdanwalton/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _emberWelcomePageComponentsWelcomePage) {
   Object.defineProperty(exports, 'default', {
     enumerable: true,
@@ -29,6 +45,9 @@ define('imdanwalton/components/welcome-page', ['exports', 'ember-welcome-page/co
       return _emberWelcomePageComponentsWelcomePage['default'];
     }
   });
+});
+define('imdanwalton/helpers/amp-extension', ['exports', 'ember-cli-amp/helpers/amp-extension'], function (exports, _emberCliAmpHelpersAmpExtension) {
+  exports['default'] = _emberCliAmpHelpersAmpExtension['default'];
 });
 define('imdanwalton/helpers/app-version', ['exports', 'ember', 'imdanwalton/config/environment'], function (exports, _ember, _imdanwaltonConfigEnvironment) {
   exports.appVersion = appVersion;
@@ -275,6 +294,21 @@ define("imdanwalton/instance-initializers/ember-data", ["exports", "ember-data/-
     initialize: _emberDataPrivateInstanceInitializersInitializeStoreService["default"]
   };
 });
+define('imdanwalton/instance-initializers/fastboot/head', ['exports'], function (exports) {
+  exports.initialize = initialize;
+
+  function initialize(owner) {
+    var document = owner.lookup('service:-document');
+    var component = owner.lookup('component:head-layout');
+
+    component.appendTo(document.head);
+  }
+
+  exports['default'] = {
+    name: 'head-fastboot',
+    initialize: initialize
+  };
+});
 define('imdanwalton/locations/none', ['exports', 'ember'], function (exports, _ember) {
   var computed = _ember['default'].computed;
   var _Ember$computed = _ember['default'].computed;
@@ -374,6 +408,9 @@ define('imdanwalton/services/ajax', ['exports', 'ember-ajax/services/ajax'], fun
       return _emberAjaxServicesAjax['default'];
     }
   });
+});
+define('imdanwalton/services/amp', ['exports', 'ember-cli-amp/services/amp'], function (exports, _emberCliAmpServicesAmp) {
+  exports['default'] = _emberCliAmpServicesAmp['default'];
 });
 define('imdanwalton/services/fastboot', ['exports', 'ember'], function (exports, _ember) {
   var deprecate = _ember['default'].deprecate;
@@ -488,11 +525,25 @@ define('imdanwalton/services/fastboot', ['exports', 'ember'], function (exports,
   exports['default'] = FastBootService;
 });
 /* global FastBoot */
+define('imdanwalton/services/head-data', ['exports', 'ember-cli-head/services/head-data'], function (exports, _emberCliHeadServicesHeadData) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberCliHeadServicesHeadData['default'];
+    }
+  });
+});
+define("imdanwalton/templates/amp/-head", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "al12/P6R", "block": "{\"statements\":[[\"open-element\",\"title\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"title\"]],false],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"link\",[]],[\"static-attr\",\"rel\",\"canonical\"],[\"dynamic-attr\",\"href\",[\"concat\",[[\"unknown\",[\"model\",\"canonicalUrl\"]]]]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"ampExtensions\"]]],null,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"  \"],[\"append\",[\"helper\",[\"amp-extension\"],[[\"get\",[\"ampExt\"]]],null],false],[\"text\",\"\\n\"]],\"locals\":[\"ampExt\"]}],\"hasPartials\":false}", "meta": { "moduleName": "imdanwalton/templates/amp/-head.hbs" } });
+});
 define("imdanwalton/templates/application", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "rUKzDxrB", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "imdanwalton/templates/application.hbs" } });
 });
 define("imdanwalton/templates/blog", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "29zT6DBl", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "imdanwalton/templates/blog.hbs" } });
+});
+define("imdanwalton/templates/head", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "9s7ugf7S", "block": "{\"statements\":[[\"text\",\"\\n\"],[\"partial\",\"amp/-head\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":true}", "meta": { "moduleName": "imdanwalton/templates/head.hbs" } });
 });
 define("imdanwalton/templates/index", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "uUQIw5aM", "block": "{\"statements\":[[\"text\",\"\\n\"],[\"open-element\",\"section\",[]],[\"static-attr\",\"id\",\"coming-soon\"],[\"static-attr\",\"class\",\"gradient\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"comment\",\" <h1>Hi! I'm Daniel</h1> \"],[\"text\",\"\\n\\n  \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Something fancy is being built behind this gradient..\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"hr\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "imdanwalton/templates/index.hbs" } });

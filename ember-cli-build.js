@@ -15,20 +15,16 @@ module.exports = function(defaults) {
     // Add options here
   });
 
-  const app = new EmberApp(defaults, {
-    // ...
-
-    outputPaths: {
-      app: {
-        css: {
-          // Specify where 'amp.scss' should be built to. This value will be the value
-          // you use for the 'css' option in the `amp` section of your options
-          // (as described above)
-          amp: 'assets/amp-styles.css'
-        }
+  outputPaths: {
+    app: {
+      css: {
+        // Specify where 'amp.scss' should be built to. This value will be the value
+        // you use for the 'css' option in the `amp` section of your options
+        // (as described above)
+        amp: 'assets/amp-styles.css'
       }
     }
-  });
+  }
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
