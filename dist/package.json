@@ -28,7 +28,7 @@
       },
       "APP": {
         "name": "imdanwalton",
-        "version": "0.0.0+697146e0",
+        "version": "0.0.0+abc4aa63",
         "autoboot": false
       },
       "exportApplicationGlobal": true
