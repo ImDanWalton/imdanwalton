@@ -9,6 +9,11 @@ module.exports = function(environment) {
     'ember-cli-gtm': {
       appId: 'GTM-P5KZR26'
     },
+    fastboot: {
+      // This value must be the same as the one you use for the `amp.index`
+      // configuration option in your ember-cli-build.js file
+      htmlFile: 'amp-index.html'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
