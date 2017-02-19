@@ -565,7 +565,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("imdanwalton/app")["default"].create({"name":"imdanwalton","version":"0.0.0+99916bb1"});
+  require("imdanwalton/app")["default"].create({"name":"imdanwalton","version":"0.0.0+255ec1d5"});
 }
 
 define('~fastboot/app-factory', ['imdanwalton/app', 'imdanwalton/config/environment'], function(App, config) {
