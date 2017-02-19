@@ -167,6 +167,63 @@ define('imdanwalton/initializers/export-application-global', ['exports', 'ember'
     initialize: initialize
   };
 });
+define('imdanwalton/initializers/fastboot/ajax', ['exports', 'ember'], function (exports, _ember) {
+  var get = _ember['default'].get;
+
+  var nodeAjax = function nodeAjax(options) {
+    var httpRegex = /^https?:\/\//;
+    var protocolRelativeRegex = /^\/\//;
+    var protocol = get(this, 'fastboot.request.protocol') + ':';
+
+    if (protocolRelativeRegex.test(options.url)) {
+      options.url = protocol + options.url;
+    } else if (!httpRegex.test(options.url)) {
+      try {
+        options.url = protocol + '//' + get(this, 'fastboot.request.host') + options.url;
+      } catch (fbError) {
+        throw new Error('You are using Ember Data with no host defined in your adapter. This will attempt to use the host of the FastBoot request, which is not configured for the current host of this request. Please set the hostWhitelist property for in your environment.js. FastBoot Error: ' + fbError.message);
+      }
+    }
+
+    if (najax) {
+      najax(options);
+    } else {
+      throw new Error('najax does not seem to be defined in your app. Did you override it via `addOrOverrideSandboxGlobals` in the fastboot server?');
+    }
+  };
+
+  exports['default'] = {
+    name: 'ajax-service',
+
+    initialize: function initialize(application) {
+      application.register('ajax:node', nodeAjax, { instantiate: false });
+      application.inject('adapter', '_ajaxRequest', 'ajax:node');
+      application.inject('adapter', 'fastboot', 'service:fastboot');
+    }
+  };
+});
+/* globals najax */
+define('imdanwalton/initializers/fastboot/error-handler', ['exports', 'ember'], function (exports, _ember) {
+
+  /**
+   * Initializer to attach an `onError` hook to your app running in fastboot. It catches any run loop
+   * exceptions and other errors and prevents the node process from crashing.
+   *
+   */
+  exports['default'] = {
+    name: 'error-handler',
+
+    initialize: function initialize(application) {
+      if (!_ember['default'].onerror) {
+        // if no onerror handler is defined, define one for fastboot environments
+        _ember['default'].onerror = function (err) {
+          var errorMessage = 'There was an error running your app in fastboot. More info about the error: \n ' + (err.stack || err);
+          _ember['default'].Logger.error(errorMessage);
+        };
+      }
+    }
+  };
+});
 define('imdanwalton/initializers/injectStore', ['exports', 'ember'], function (exports, _ember) {
 
   /*
@@ -210,36 +267,6 @@ define('imdanwalton/initializers/transforms', ['exports', 'ember'], function (ex
     name: 'transforms',
     before: 'store',
     initialize: function initialize() {}
-  };
-});
-define("imdanwalton/instance-initializers/browser/clear-double-boot", ["exports"], function (exports) {
-  /*globals Ember*/
-
-  // When using `ember fastboot --serve-assets` the application output will
-  // already be rendered to the DOM when the actual JavaScript loads. Ember
-  // does not automatically clear its `rootElement` so this leads to the
-  // "double" applications being visible at once (only the "bottom" one is
-  // running via JS and is interactive).
-  //
-  // This removes any pre-rendered ember-view elements, so that the booting
-  // application will replace the pre-rendered output
-
-  exports["default"] = {
-    name: "clear-double-boot",
-
-    initialize: function initialize(instance) {
-      var originalDidCreateRootView = instance.didCreateRootView;
-
-      instance.didCreateRootView = function () {
-        var elements = document.querySelectorAll(instance.rootElement + ' .ember-view');
-        for (var i = 0; i < elements.length; i++) {
-          var element = elements[i];
-          element.parentNode.removeChild(element);
-        }
-
-        originalDidCreateRootView.apply(instance, arguments);
-      };
-    }
   };
 });
 define("imdanwalton/instance-initializers/ember-data", ["exports", "ember-data/-private/instance-initializers/initialize-store-service"], function (exports, _emberDataPrivateInstanceInitializersInitializeStoreService) {
@@ -482,35 +509,13 @@ define("imdanwalton/templates/page-not-found", ["exports"], function (exports) {
 /* jshint ignore:start */
 
 define('imdanwalton/config/environment', ['ember'], function(Ember) {
-  var prefix = 'imdanwalton';
-/* jshint ignore:start */
-
-try {
-  var metaName = prefix + '/config/environment';
-  var rawConfig = document.querySelector('meta[name="' + metaName + '"]').getAttribute('content');
-  var config = JSON.parse(unescape(rawConfig));
-
-  var exports = { 'default': config };
-
-  Object.defineProperty(exports, '__esModule', { value: true });
-
-  return exports;
-}
-catch(err) {
-  throw new Error('Could not read config from meta tag with name "' + metaName + '".');
-}
-
-/* jshint ignore:end */
-
+  return FastBoot.config();
 });
 
 /* jshint ignore:end */
 
 /* jshint ignore:start */
 
-if (!runningTests) {
-  require("imdanwalton/app")["default"].create({"name":"imdanwalton","version":"0.0.0+697146e0"});
-}
 
 define('~fastboot/app-factory', ['imdanwalton/app', 'imdanwalton/config/environment'], function(App, config) {
   App = App['default'];

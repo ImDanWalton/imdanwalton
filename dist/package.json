@@ -1,0 +1,37 @@
+{
+  "dependencies": {},
+  "fastboot": {
+    "moduleWhitelist": [],
+    "schemaVersion": 2,
+    "manifest": {
+      "appFiles": [
+        "fastboot/imdanwalton.js"
+      ],
+      "vendorFiles": [
+        "fastboot/vendor.js"
+      ],
+      "htmlFile": "index.html"
+    },
+    "appConfig": {
+      "modulePrefix": "imdanwalton",
+      "environment": "development",
+      "rootURL": "/",
+      "locationType": "auto",
+      "ember-cli-gtm": {
+        "appId": "GTM-P5KZR26"
+      },
+      "EmberENV": {
+        "FEATURES": {},
+        "EXTEND_PROTOTYPES": {
+          "Date": false
+        }
+      },
+      "APP": {
+        "name": "imdanwalton",
+        "version": "0.0.0+697146e0",
+        "autoboot": false
+      },
+      "exportApplicationGlobal": true
+    }
+  }
+}
