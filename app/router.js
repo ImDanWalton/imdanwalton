@@ -9,6 +9,7 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('page-not-found', { path: '/*path' });
   this.route('blog');
+  this.route('amp');
 });
 
 export default Router;
