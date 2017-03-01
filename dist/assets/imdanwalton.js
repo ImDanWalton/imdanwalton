@@ -366,9 +366,13 @@ define('imdanwalton/router', ['exports', 'ember', 'imdanwalton/config/environmen
   Router.map(function () {
     this.route('page-not-found', { path: '/*path' });
     this.route('blog');
+    this.route('amp');
   });
 
   exports['default'] = Router;
+});
+define('imdanwalton/routes/amp', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({});
 });
 define('imdanwalton/routes/blog', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({});
@@ -387,8 +391,8 @@ define('imdanwalton/services/ajax', ['exports', 'ember-ajax/services/ajax'], fun
     }
   });
 });
-define('imdanwalton/services/amp', ['exports', 'ember-cli-amp/services/amp'], function (exports, _emberCliAmpServicesAmp) {
-  exports['default'] = _emberCliAmpServicesAmp['default'];
+define('imdanwalton/services/amp', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Service.extend({});
 });
 define('imdanwalton/services/fastboot', ['exports', 'ember'], function (exports, _ember) {
   var deprecate = _ember['default'].deprecate;
@@ -511,6 +515,9 @@ define('imdanwalton/services/head-data', ['exports', 'ember-cli-head/services/he
     }
   });
 });
+define("imdanwalton/templates/amp", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "nrNbXWJL", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\\n\\nTHIS IS THE AMP ROUTE\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "imdanwalton/templates/amp.hbs" } });
+});
 define("imdanwalton/templates/amp/-head", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "al12/P6R", "block": "{\"statements\":[[\"open-element\",\"title\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"title\"]],false],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"link\",[]],[\"static-attr\",\"rel\",\"canonical\"],[\"dynamic-attr\",\"href\",[\"concat\",[[\"unknown\",[\"model\",\"canonicalUrl\"]]]]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"ampExtensions\"]]],null,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"  \"],[\"append\",[\"helper\",[\"amp-extension\"],[[\"get\",[\"ampExt\"]]],null],false],[\"text\",\"\\n\"]],\"locals\":[\"ampExt\"]}],\"hasPartials\":false}", "meta": { "moduleName": "imdanwalton/templates/amp/-head.hbs" } });
 });
@@ -565,7 +572,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("imdanwalton/app")["default"].create({"name":"imdanwalton","version":"0.0.0+255ec1d5"});
+  require("imdanwalton/app")["default"].create({"name":"imdanwalton","version":"0.0.0+ed53a06d"});
 }
 
 define('~fastboot/app-factory', ['imdanwalton/app', 'imdanwalton/config/environment'], function(App, config) {

@@ -125,6 +125,15 @@ define('imdanwalton/tests/router.jshint.lint-test', ['exports'], function (expor
     assert.ok(true, 'router.js should pass jshint.');
   });
 });
+define('imdanwalton/tests/routes/amp.jshint.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | routes/amp.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/amp.js should pass jshint.');
+  });
+});
 define('imdanwalton/tests/routes/blog.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
@@ -150,6 +159,15 @@ define('imdanwalton/tests/routes/page-not-found.jshint.lint-test', ['exports'], 
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/page-not-found.js should pass jshint.');
+  });
+});
+define('imdanwalton/tests/services/amp.jshint.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | services/amp.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'services/amp.js should pass jshint.');
   });
 });
 define('imdanwalton/tests/test-helper', ['exports', 'imdanwalton/tests/helpers/resolver', 'ember-qunit'], function (exports, _imdanwaltonTestsHelpersResolver, _emberQunit) {
