@@ -1,0 +1,44 @@
+{
+  "csp": {
+    "styleSrc": [
+      "'self'",
+      "https://p.typekit.net",
+      "https://use.typekit.net",
+      "'sha256-+XRuI7Tc9T2sIBeGx+/41ni03trDV9hggU+LbgtION4='",
+      "'sha256-WpB+bRGPXu3oV64qmWQQY3agULtb2WeKTbG2MxJG5co='",
+      "'sha256-PqnDs+5IKKDYkveTZzrW72mC3xMruHG5e4TzbwCm3+g='"
+    ],
+    "fontSrc": [
+      "'self'",
+      "data:",
+      "https://use.typekit.net"
+    ],
+    "imgSrc": [
+      "'self'",
+      "about:",
+      "data:",
+      "www.google-analytics.com",
+      "stats.g.doubleclick.net",
+      "www.google.com",
+      "p.typekit.net"
+    ],
+    "defaultSrc": [
+      "'self'"
+    ],
+    "scriptSrc":[
+      "'self'",
+      "www.googletagmanager.com",
+      "tagmanager.google.com",
+      "www.google-analytics.com",
+      "https://use.typekit.net"
+    ],
+    "connectSrc":[
+      "sessions.reallyreally.io",
+      "forms.hubspot.com",
+      "performance.typekit.net"
+    ],
+    "reportUri": "/cspreport",
+    "upgradeInsecureRequests": true
+  },
+  "poweredBy": "Aperim Pty. Ltd."
+}
