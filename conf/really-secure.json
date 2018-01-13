@@ -1,0 +1,37 @@
+{
+  "csp": {
+    "styleSrc": [
+      "'self'",
+      "'sha256-HUROQ1w0I0IGeZo7yCaWEvjUULTGXVpsML6P6mUL4BQ='",
+      "'sha256-17EWnk+Gf68tHDlmgMQU4O/nnYoRyQsGmrb+ofcjN1c='",
+      "'sha256-E4pemp/PNLS1erNI4P4iTqoxIS53DEAC9FNagTvBqt8='"
+    ],
+    "fontSrc": [
+      "'self'",
+      "data:"
+    ],
+    "imgSrc": [
+      "'self'",
+      "about:",
+      "data:",
+      "www.google-analytics.com",
+      "stats.g.doubleclick.net",
+      "www.google.com"
+    ],
+    "defaultSrc": [
+      "'self'"
+    ],
+    "scriptSrc":[
+      "'self'",
+      "www.googletagmanager.com",
+      "tagmanager.google.com",
+      "www.google-analytics.com"
+    ],
+    "connectSrc":[
+      "sessions.reallyreally.io"
+    ],
+    "reportUri": "/cspreport",
+    "upgradeInsecureRequests": true
+  },
+  "poweredBy": "imdanwalton.com"
+}
