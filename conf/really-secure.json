@@ -2,16 +2,13 @@
   "csp": {
     "styleSrc": [
       "'self'",
-      "https://p.typekit.net",
-      "https://use.typekit.net",
-      "'sha256-+XRuI7Tc9T2sIBeGx+/41ni03trDV9hggU+LbgtION4='",
-      "'sha256-WpB+bRGPXu3oV64qmWQQY3agULtb2WeKTbG2MxJG5co='",
-      "'sha256-PqnDs+5IKKDYkveTZzrW72mC3xMruHG5e4TzbwCm3+g='"
+      "'sha256-HUROQ1w0I0IGeZo7yCaWEvjUULTGXVpsML6P6mUL4BQ='",
+      "'sha256-17EWnk+Gf68tHDlmgMQU4O/nnYoRyQsGmrb+ofcjN1c='",
+      "'sha256-E4pemp/PNLS1erNI4P4iTqoxIS53DEAC9FNagTvBqt8='"
     ],
     "fontSrc": [
       "'self'",
-      "data:",
-      "https://use.typekit.net"
+      "data:"
     ],
     "imgSrc": [
       "'self'",
@@ -19,8 +16,7 @@
       "data:",
       "www.google-analytics.com",
       "stats.g.doubleclick.net",
-      "www.google.com",
-      "p.typekit.net"
+      "www.google.com"
     ],
     "defaultSrc": [
       "'self'"
@@ -29,16 +25,13 @@
       "'self'",
       "www.googletagmanager.com",
       "tagmanager.google.com",
-      "www.google-analytics.com",
-      "https://use.typekit.net"
+      "www.google-analytics.com"
     ],
     "connectSrc":[
-      "sessions.reallyreally.io",
-      "forms.hubspot.com",
-      "performance.typekit.net"
+      "sessions.reallyreally.io"
     ],
     "reportUri": "/cspreport",
     "upgradeInsecureRequests": true
   },
-  "poweredBy": "Aperim Pty. Ltd."
+  "poweredBy": "imdanwalton.com"
 }
