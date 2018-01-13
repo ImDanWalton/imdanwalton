@@ -1,0 +1,12 @@
+{
+  "apps": [{
+    "name": "imdanwalton-site",
+    "script": "./bin/www",
+    "instances" : 0,
+    "exec_mode" : "cluster",
+    "post_update": ["rm -Rf ./node_modules", "npm install", "echo Launching..."],
+    "env": {
+      "production": true
+    }
+  }]
+}
