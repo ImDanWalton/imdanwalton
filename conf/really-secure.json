@@ -33,5 +33,11 @@
     "reportUri": "/cspreport",
     "upgradeInsecureRequests": true
   },
+  "hsts":{
+    "maxAge":63072000,
+    "includeSubDomains":true,
+    "preload":true,
+    "force":true
+  },
   "poweredBy": "imdanwalton.com"
 }
